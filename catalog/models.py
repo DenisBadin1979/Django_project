@@ -14,7 +14,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to="catalog/photo", blank=True, null=True)
     category = models.ForeignKey(
         "Category",
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         verbose_name="Категория",
         help_text="Введите категорию продукта",
         blank=True,
