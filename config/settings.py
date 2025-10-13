@@ -1,7 +1,8 @@
-from pathlib import Path
 import os
-from dotenv import load_dotenv
+from pathlib import Path
+
 from django.conf.global_settings import STATICFILES_DIRS
+from dotenv import load_dotenv
 
 load_dotenv(override=True)
 BASE_DIR = Path(__file__).resolve().parent.parent
