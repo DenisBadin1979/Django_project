@@ -6,7 +6,7 @@ from catalog.views import contact_post, contacts, home, product_list, product_de
 app_name = CatalogConfig.name
 
 urlpatterns = [
-    path("home/", home, name="home"),
+    path("base/", home, name="base"),
     path("contacts/", contacts, name="contacts"),
     path("contact_post/", contact_post, name="contact_post"),
     path('', product_list, name="product_list"),
