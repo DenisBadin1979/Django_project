@@ -1,3 +1,5 @@
+from django.urls import reverse
+
 from django.db import models
 
 class Article(models.Model):
@@ -5,8 +7,8 @@ class Article(models.Model):
     content = models.TextField(verbose_name="Содержимое статьи", help_text="Разместите содержимое стать")
     preview = models.ImageField(verbose_name="Подходящая картинка", upload_to="blog/photo", blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
-    publication_attribute = models.BooleanField(default=True)
-    numbers_views = models.IntegerField()
+    publication_attribute = models.BooleanField(default=False)
+    numbers_views = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Статья"
@@ -15,3 +17,6 @@ class Article(models.Model):
 
     def __str__(self):
         return self.heading
+
+    def get_absolute_url(self):
+        return reverse('blog:article_detail', kwargs={'pk': self.pk})
