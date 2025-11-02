@@ -1,6 +1,7 @@
-{% extends 'home.html' %}
+{% extends 'catalog/base.html' %}
 {% load my_tags %}
 {% block content %}
+
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Магазин</h1>
     <p class="lead">Магазин - лучший в мире сервис по покупке аудио - видео техники и смартфонов и разных гаджетов</p>
@@ -8,22 +9,25 @@
 
 <div class="container">
     <div class="row text-center">
+        {% for pr in products %}
         <div class="col-8">
             <div class="card mb-4 box-shadow">
-                <img src="{{ produ.image | media_filter}}">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">{{produ.name}}</h4>
+                    <img src={{ pr.image | media_filter}}>
+                    <h4 class="my-0 font-weight-normal">{{pr.name}}</h4>
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">{{produ.purchase_price}} руб.</h1>
+                    <h1 class="card-title pricing-card-title">{{pr.purchase_price}} руб.</h1>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                        <li>{{ produ.description}}</li>
+                        <li>{{ pr.description|truncatechars:100 }}</li>
 
                     </ul>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                    <a class="btn btn-primary" href="{% url 'catalog:product_detail' pr.pk %}" role="button">Просмотр</a>
+
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 
 
