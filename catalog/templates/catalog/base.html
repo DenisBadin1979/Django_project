@@ -19,9 +19,10 @@
         <a class="p-2 btn btn-outline-primary" href="/blog/">Блог</a>
         <a class="p-2 btn btn-outline-primary" href="/product/new/">Новый продукт</a>
         {% if user.is_authenticated %}
+        <form method="post" action="{% url 'users:logout' %}" class="d-inline">
             {% csrf_token %}
-	    <a class="p-2 btn btn-outline-primary" href="{% url 'users:logout' %}">Выйти</a>
-
+            <button type="submit" class="p-2 btn btn-outline-primary border-0">Выйти</button>
+        </form>
         <p style="font-size: 34px; color: green;">***Добро пожаловать {{ user.username }}</p>
         {% else %}
             <p style="font-size: 34px; color: green;">***Добро пожаловать на сайт</p>
