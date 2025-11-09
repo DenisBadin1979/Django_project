@@ -21,8 +21,17 @@
 
                     </ul>
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
-                    <a href="/product/update/{{ object.pk }}" >Редактировать</a>
-                    <a href="/product/delete/{{ object.pk }}" >Удалить</a>
+                    {% if user.is_authenticated %}
+                        {# Владелец или модератор с правом редактирования #}
+                        {% if user == object.owner or perms.catalog.can_unpublish_product %}
+                        <a href="/product/update/{{ object.pk }}" class="btn btn-outline-secondary">Редактировать</a>
+                        {% endif %}
+
+                        {# Владелец или модератор с правом удаления #}
+                        {% if user == object.owner or perms.catalog.delete_product %}
+                        <a href="/product/delete/{{ object.pk }}" class="btn btn-outline-danger">Удалить</a>
+                        {% endif %}
+                    {% endif %}
 
                 </div>
             </div>
