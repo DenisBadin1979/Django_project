@@ -115,3 +115,8 @@ class ProductForm(ModelForm):
             )
 
         return price
+
+class ProductModeratorForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ('publication_attribute',)
