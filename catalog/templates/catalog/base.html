@@ -1,38 +1,71 @@
 {% load static %}
 
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Магазин</title>
-    <!-- Подключите статичеcкие файлы со стилями Bootstrap -->
-     <link href="{% static 'css/bootstrap.min.css'%} " rel="stylesheet">
-    
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 </head>
 <body>
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-    <h5 class="my-0 mr-md-auto font-weight-normal">Магазин</h5>
-    <nav class="ms-5">
-        <a class="p-2 btn btn-outline-primary" href="/">Каталог</a>
-        <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
-        <a class="p-2 btn btn-outline-primary" href="/blog/">Блог</a>
-        <a class="p-2 btn btn-outline-primary" href="/product/new/">Новый продукт</a>
-        {% if user.is_authenticated %}
-        <form method="post" action="{% url 'users:logout' %}" class="d-inline">
-            {% csrf_token %}
-            <button type="submit" class="p-2 btn btn-outline-primary border-0">Выйти</button>
-        </form>
-        <p style="font-size: 34px; color: green;">***Добро пожаловать {{ user.username }}</p>
-        {% else %}
-            <p style="font-size: 34px; color: green;">***Добро пожаловать на сайт</p>
-            <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Войти</a>
-            <a class="p-2 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
-        {% endif %}
-    </nav>
-</div>
-{% block content %}
-{% endblock %}
-<!-- Подключите статичеcкие файлы со скриптами Bootstrap -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Боковая панель с категориями -->
+            <div class="col-md-3 bg-light">
+                <div class="p-3">
+                    <h5>Категории</h5>
+                    <ul class="list-unstyled">
+                        {% for category in all_categories %}
+                            <li class="mb-2">
+                                <a href="{% url 'catalog:product_category' category.name %}"
+                                   class="text-decoration-none">
+                                    {{ category.name }}
+                                </a>
+                            </li>
+                        {% empty %}
+                            <li>Категории отсутствуют</li>
+                        {% endfor %}
+                    </ul>
+
+                    <!-- Ссылка на страницу всех категорий -->
+                    <a href="/categories/" class="btn btn-outline-primary btn-sm mt-3">
+                        Все категории
+                    </a>
+                </div>
+            </div>
+
+            <!-- Основной контент -->
+            <div class="col-md-9">
+                <!-- Навигационная панель -->
+                <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+                    <h5 class="my-0 mr-md-auto font-weight-normal">Магазин</h5>
+                    <nav class="ms-5">
+                        <a class="p-2 btn btn-outline-primary" href="/">Каталог</a>
+                        <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
+                        <a class="p-2 btn btn-outline-primary" href="/blog/">Блог</a>
+                        <a class="p-2 btn btn-outline-primary" href="/product/new/">Новый продукт</a>
+
+                        {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'users:logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="p-2 btn btn-outline-primary border-0">Выйти</button>
+                        </form>
+                        <span class="ms-2 text-success">Добро пожаловать, {{ user.username }}</span>
+                        {% else %}
+                            <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Войти</a>
+                            <a class="p-2 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
+                        {% endif %}
+                    </nav>
+                </div>
+
+                <!-- Основной контент страницы -->
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
