@@ -111,8 +111,8 @@ EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'sudjango@yandex.ru'
-EMAIL_HOST_PASSWORD = 'hibidvkvecapboju'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 LOGIN_REDIRECT_URL = "catalog:product_list"
